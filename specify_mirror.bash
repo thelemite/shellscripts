@@ -25,13 +25,13 @@ echo "Enter remote db username:"
 read remote_dbuser
 
 echo "Enter remote db password:"
-read remote_dbpass
+read -s remote_dbpass
 
 echo "Enter local db username:"
 read local_dbuser
 
 echo "Enter local db password:"
-read local_dbpass
+read -s local_dbpass
 
 echo "Enter a local db name to pump the dump into:"
 read local_dbname
