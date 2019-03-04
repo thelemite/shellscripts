@@ -33,8 +33,12 @@ read local_dbuser
 echo "Enter local db password:"
 read -s local_dbpass
 
-echo "Enter a local db name to pump the dump into:"
+echo "Enter a local db name to pump the dump into (*Enter blank for same as source):"
 read local_dbname
+
+if [[ -z "$local_dbname" ]]; then 
+local_dbname=${DB} 
+fi
 
 echo "Taking a dump..."
 
