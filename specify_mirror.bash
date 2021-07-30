@@ -53,9 +53,13 @@ scp ${remote_sshuser}@${SPECIFY_SERVER}:${REMOTE_DIR}${FILENAME} ${LOCAL_DIR}${F
 
 echo "Nice catch...now we stick the dump in my ess kyew el."
 
+
 ${MYSQL} -u ${local_dbuser} -p"${local_dbpass}" -e "DROP DATABASE ${local_dbname};" > /dev/null 2>&1
 ${MYSQL} -u ${local_dbuser} -p"${local_dbpass}" -e "CREATE DATABASE ${local_dbname};" > /dev/null 2>&1
 ${BZIP} -dc ${LOCAL_DIR}${FILENAME} | ${MYSQL} -u ${local_dbuser} -p"${local_dbpass}" ${local_dbname} > /dev/null 2>&1
+
+echo "Cool, looks like everything came out OK.  Time to wipe..............the archive file out."
+ssh ${remote_sshuser}@${SPECIFY_SERVER} "rm ${REMOTE_DIR}${FILENAME}"
 
 echo "Alright, that's enough playing with dumps...Now, go wash your hands and get back to work."
 echo "Sincerely, The Management"
