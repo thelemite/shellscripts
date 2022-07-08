@@ -10,7 +10,7 @@ BZIP=$(which bzip2)
 
 DATE=$(date +"%Y%m%d")
 
-declare -a DBS=("uf_birds" "uf_fishes" "uf_mammals" "uf_invertebratezoology" "uf_herpetology")
+declare -a DBS=("uf_birds" "uf_fishes" "uf_mammals" "uf_invertebratezoology" "uf_herpetology" "uf_grr" "uf_paleobotany" "uf_invertebratepaleontology" "uf_vertebratepaleontology")
 
 echo "Enter remote ssh username:"
 read remote_sshuser
@@ -51,6 +51,9 @@ echo "Nice catch...now we stick the dump in my ess kyew el."
 ${MYSQL} -u ${local_dbuser} -p"${local_dbpass}" -e "DROP DATABASE ${local_dbname};" > /dev/null 2>&1
 ${MYSQL} -u ${local_dbuser} -p"${local_dbpass}" -e "CREATE DATABASE ${local_dbname};" > /dev/null 2>&1
 ${BZIP} -dc ${LOCAL_DIR}${FILENAME} | ${MYSQL} -u ${local_dbuser} -p"${local_dbpass}" ${local_dbname} > /dev/null 2>&1
+
+echo "Cool, looks like everything came out OK.  Time to wipe..............the archive file out."
+ssh ${remote_sshuser}@${SPECIFY_SERVER} "rm ${REMOTE_DIR}${FILENAME}"
 
 done # end main loop
 
